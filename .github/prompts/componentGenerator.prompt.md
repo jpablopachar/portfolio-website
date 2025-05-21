@@ -21,7 +21,8 @@ For each enhanced component, provide:
 - Translate any English text content inside JSX tags to Spanish
 - Maintain the component's original functionality
 - Use proper React patterns according to Next.js 15 best practices
-- Extract component data into a separate ComponentNameData.tsx file when appropriate
+- Extract component data into a separate file only when the component contains data defined as arrays or objects that are used directly within the component
+- Use .tsx extension for data files when they contain JSX elements, and .ts when they only contain plain data structures
 - Position internal component definitions and their interfaces before the main component
 - Extract business logic to custom hooks when it exceeds 35 lines of code
 
@@ -144,9 +145,11 @@ const useComponentName = (): ComponentNameHook => {
 
 ## Data Separation Guidelines
 
-For static data (lists, configuration objects, mock data), create a separate file:
+For static data (arrays, objects, configuration objects, mock data) used directly within the component, create a separate file:
 
-1. Create `ComponentNameData.tsx` in the same directory
+1. Create `ComponentNameData.ts` or `ComponentNameData.tsx` in the same directory:
+   - Use `.tsx` extension if the data contains JSX elements
+   - Use `.ts` extension if the data only contains plain JavaScript/TypeScript structures
 2. Move all static data to this file with proper TypeScript interfaces
 3. Export the data and import it in the main component
 
@@ -202,7 +205,7 @@ export default FeatureList
 
 ### After Enhancement:
 
-FeatureListData.tsx:
+FeatureListData.ts:
 
 ```tsx
 /**
@@ -278,7 +281,7 @@ export default FeatureList
 1. **Analyze the component** to identify:
 
    - Internal components that need interfaces
-   - Static data that should be separated
+   - Static data (arrays/objects) that are used in the component and should be separated
    - Business logic that should be extracted
 
 2. **Create TypeScript interfaces** for all components with proper JSDoc
@@ -287,7 +290,9 @@ export default FeatureList
 
 4. **Extract business logic** to custom hooks when appropriate
 
-5. **Extract static data** to separate files when appropriate
+5. **Extract static data** to separate files only when they are explicitly defined in the component and used directly within it:
+   - Use `.tsx` extension if the data contains JSX elements
+   - Use `.ts` extension if the data contains only plain structures
 
 6. **Document everything** with proper Spanish JSDoc comments
 
