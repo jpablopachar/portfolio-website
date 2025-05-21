@@ -1,103 +1,100 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { HiOutlineMail, HiOutlinePhone } from 'react-icons/hi'
+import { MdArrowOutward } from 'react-icons/md'
+import { TypeAnimation } from 'react-type-animation'
+
+import Blob from '@/components/Blob'
+import Pattern from '@/components/Pattern'
+import Socials from '@/components/Socials'
+
+import { contactInfo, typingSequence } from './HomeData'
+
+import avatarImg from '../public/assets/avatar.png'
+
+/**
+ * Componente `Home`
+ *
+ * Página principal de la aplicación que muestra información profesional
+ * del desarrollador con elementos animados, imagen de perfil y formas de contacto.
+ * Incluye una animación de tipado que muestra diferentes roles profesionales.
+ *
+ * @returns {JSX.Element} Página principal con presentación profesional
+ */
+const Home: React.FC = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: { delay: 2.4, duration: 0.4, ease: 'easeIn' },
+      }}
+      className="h-screen flex items-center"
+    >
+      <Pattern />
+      <div className="flex flex-col xl:flex-row items-center justify-between w-full">
+        <div className="w-full xl:w-[550px] flex flex-col items-center xl:items-start text-center xl:text-left">
+          <h1 className="h1 flex-1 mb-[28px]">
+            ¡Hola! Soy Jake, 
+            {' '}
+            <br />
+            <TypeAnimation
+              sequence={typingSequence}
+              wrapper="span"
+              speed={40}
+              className="text-accent"
+              repeat={Infinity}
+              cursor={false}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </h1>
+          <p className="max-w-[500px] mb-[44px]">
+            Desarrollo sitios web y aplicaciones visualmente cautivadores y
+            amigables, que transforman tus ideas en experiencias digitales
+            fluidas y atractivas.
+          </p>
+          <button className="btn btn-lg btn-accent mb-16">
+            <div className="flex items-center gap-3">
+              <span>Hablemos</span>
+              <MdArrowOutward className="text-xl" />
+            </div>
+          </button>
+          <div className="flex flex-col xl:flex-row xl:items-center gap-4 xl:gap-8 mb-12 xl:mb-0">
+            <div className="flex items-center gap-4 text-lg">
+              <span className="text-accent">
+                <HiOutlinePhone className="text-xl" />
+              </span>
+              <span>{contactInfo[0].text}</span>
+            </div>
+
+            <div className="flex items-center gap-4 text-lg">
+              <span className="text-accent">
+                <HiOutlineMail className="text-xl" />
+              </span>
+              <span>{contactInfo[1].text}</span>
+            </div>
+          </div>
+          <Socials
+            containerStyles="flex 2xl:flex-col gap-6 xl:hidden 2xl:flex 2xl:absolute 2xl:top-1/2 2xl:right-2 2xl:transform 2xl:-translate-x-1/2 2xl:-translate-y-1/2"
+            iconStyles="bg-accent text-white hover:bg-accent-hover transition w-[48px] h-[48px] text-[22px] flex items-center justify-center rounded-full cursor-pointer"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <div className="hidden xl:block flex-1 relative z-20">
+          <Blob containerStyles="w-[560px] h-[560px]" />
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src={avatarImg}
+            alt="avatar"
+            width={440}
+            height={600}
+            quality={100}
+            className="absolute -top-16 left-[120px]"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+          <div className="w-full h-[164px] absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary via-primary/90 to-primary/20"></div>
+        </div>
+      </div>
+    </motion.section>
+  )
 }
+
+export default Home
